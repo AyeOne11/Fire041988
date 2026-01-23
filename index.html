@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarah's Digital Altar 🕯️</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.9.0/suncalc.min.js"></script>
+</head>
+<body>
+    <div class="altar-container">
+        <header>
+            <h1>🕯️ Sarah's Digital Altar 🕯️</h1>
+            <p>Fiat Lux et Protectio – Latin Rites & Digital Intent</p>
+        </header>
+
+        <section class="celestial">
+            <h2>Current Celestial Influences</h2>
+            <div id="moon-phase"></div>
+            <div id="planetary-hours"></div>
+        </section>
+
+        <details class="alphabet-reference">
+            <summary><h2>Latin Correspondences (Click to Expand)</h2></summary>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Value</th>
+                        <th>Letter</th>
+                        <th>Meaning</th>
+                        <th>Sound to Vibrate</th>
+                    </tr>
+                </thead>
+                <tbody id="alphabet-table"></tbody>
+            </table>
+        </details>
+
+        <!-- Rest of sections unchanged: oracle, sigil, invocation, candle, grimoire -->
+        <section class="oracle">
+            <h2>Random Oracle</h2>
+            <button id="draw-oracle">Draw Oracle</button>
+            <div id="oracle-result"></div>
+        </section>
+
+        <section class="sigil">
+            <h2>Sigil Forge</h2>
+            <input type="text" id="intent-input" placeholder="Inscribe intent (e.g., PROTECTIO ET CLARITAS)" />
+            <button id="forge-sigil">Forge & Charge</button>
+            <div id="sigil-result"></div>
+            <canvas id="sigil-canvas" width="300" height="300"></canvas>
+        </section>
+
+        <section class="invocation">
+            <h2>Invocation Chamber</h2>
+            <textarea id="chant" rows="4">Fiat Lux. In nomine Principii et Crucis, protego me ab umbris.</textarea>
+            <button id="vibrate">Vibrate / Launch</button>
+            <div id="launch-message"></div>
+        </section>
+
+        <section class="candle-section">
+            <h2>Virtual Flame</h2>
+            <button id="candle-toggle">Light / Extinguish Candle</button>
+            <div id="candle-flame" style="font-size: 120px; text-align: center; margin: 20px 0;">🕯️🔥</div>
+        </section>
+
+        <section class="grimoire">
+            <h2>Grimoire Log</h2>
+            <textarea id="note" rows="4" placeholder="Record vision, synchronicity, or result..."></textarea>
+            <button id="seal-note">Seal & Archive</button>
+            <ul id="log-list"></ul>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
