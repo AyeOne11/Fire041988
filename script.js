@@ -329,11 +329,13 @@ document.getElementById('seal-note').addEventListener('click', () => {
 let candleLit = false;
 document.getElementById('candle-toggle').addEventListener('click', () => {
     candleLit = !candleLit;
-    const flame = document.getElementById('candle-flame');
-    flame.innerHTML = candleLit ? '🕯️🔥' : '🕯️';
-    flame.style.opacity = candleLit ? '1' : '0.5';
-    // Add simple flicker animation toggle via inline style or class
-    flame.style.animation = candleLit ? 'flicker 0.1s infinite alternate' : 'none';
+    const candle = document.querySelector('.candle');
+    
+    if (candleLit) {
+        candle.classList.add('lit');
+    } else {
+        candle.classList.remove('lit');
+    }
 });
 
 document.getElementById('vibrate').addEventListener('click', () => {
