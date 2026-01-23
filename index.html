@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.9.0/suncalc.min.js"></script>
 </head>
+
+
 <body>
     <div class="altar-container">
         <header>
@@ -36,16 +38,10 @@
             </table>
         </details>
 
-        <!-- Rest of sections unchanged: oracle, sigil, invocation, candle, grimoire -->
-        <section class="oracle">
-            <h2>Random Oracle</h2>
-            <button id="draw-oracle">Draw Oracle</button>
-            <div id="oracle-result"></div>
-        </section>
-
         <section class="sigil">
             <h2>Sigil Forge</h2>
-            <input type="text" id="intent-input" placeholder="Inscribe intent (e.g., PROTECTIO ET CLARITAS)" />
+            <p>Enter your intent. The system will map it to the Rose of 22 Latin Petals.</p>
+            <input type="text" id="intent-input" placeholder="Inscribe intent (e.g., PROTECTIO)" />
             <button id="forge-sigil">Forge & Charge</button>
             <div id="sigil-result"></div>
             <canvas id="sigil-canvas" width="300" height="300"></canvas>
@@ -61,17 +57,16 @@
         <section class="candle-section">
             <h2>Virtual Flame</h2>
             <button id="candle-toggle">Light / Extinguish Candle</button>
-            <div id="candle-flame" style="font-size: 120px; text-align: center; margin: 20px 0;">🕯️🔥</div>
+            <div id="candle-flame" style="font-size: 120px; text-align: center; margin: 20px 0;">🕯️</div>
         </section>
 
         <section class="grimoire">
             <h2>Grimoire Log</h2>
+            <p><em>Verba volant, scripta manent.</em> (Spoken words fly away, written words remain.)</p>
             <textarea id="note" rows="4" placeholder="Record vision, synchronicity, or result..."></textarea>
             <button id="seal-note">Seal & Archive</button>
             <ul id="log-list"></ul>
         </section>
     </div>
-
     <script src="script.js"></script>
 </body>
-</html>
