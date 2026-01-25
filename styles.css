@@ -1,0 +1,282 @@
+/* --- GLOBAL TEMPLE STYLES --- */
+body {
+    /* The Portal Layering: Dark Purple Overlay + The Door Painting */
+    background: 
+        linear-gradient(
+            to bottom, 
+            rgba(14, 0, 31, 0.90), /* Deep dark purple top */
+            rgba(26, 0, 51, 0.75)  /* Slightly clearer bottom */
+        ),
+        url('images/the_door.jpg'); /* The Hyper-Sigil Background */
+
+    /* Mechanics */
+    background-size: cover;       
+    background-position: center center;  
+    background-attachment: fixed; /* Parallax effect */
+    background-repeat: no-repeat;
+    
+    color: #d4af37;
+    font-family: 'IM Fell English SC', serif;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* --- THE ALTAR CONTAINER (Glassmorphism) --- */
+.altar-container {
+    max-width: 900px;
+    margin: 0 auto;
+    
+    background: rgba(0, 0, 0, 0.7); 
+    backdrop-filter: blur(3px); /* Low blur to see The Door's paint strokes */
+    
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+h1, h2 {
+    font-family: 'Cinzel Decorative', cursive;
+    text-shadow: 0 0 10px #d4af37;
+    color: #ffd700;
+}
+
+/* --- IGNIS DIGITALIS (The Living Flame) --- */
+.candle-section {
+    text-align: center;
+}
+
+.candle-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin: 20px 0;
+    /* Ambient glow for the void around the candle */
+    filter: drop-shadow(0 0 15px rgba(255, 165, 0, 0.1));
+}
+
+.candle {
+    width: 50px;
+    height: 150px;
+    background: linear-gradient(to right, #e0d4b0, #8e7d5e); /* Wax texture */
+    border-radius: 4px;
+    position: relative;
+    opacity: 0.5; /* Dim when unlit */
+    transition: opacity 1s, box-shadow 0.5s;
+    z-index: 10;
+}
+
+.candle.lit {
+    opacity: 1;
+    box-shadow: 0 0 30px rgba(255, 165, 0, 0.4);
+}
+
+.wick {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 15px;
+    background: #1a1a1a;
+    border-radius: 2px;
+    z-index: 5;
+}
+
+/* Flame Animation Logic */
+.flame {
+    width: 20px;
+    height: 100px;
+    position: absolute;
+    top: -110px; 
+    left: 50%;
+    transform: translateX(-50%) scale(0); /* Hidden when unlit */
+    transform-origin: 50% 100%;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: blur(2px);
+    z-index: 20;
+}
+
+.candle.lit .flame {
+    transform: translateX(-50%) scale(1);
+}
+
+.flame .top {
+    width: 20px;
+    height: 100%;
+    position: absolute;
+    background: linear-gradient(white 10%, #ffcc00 80%, transparent);
+    border-radius: 50% 50% 20% 20%;
+    box-shadow: 0 0 20px rgba(255, 165, 0, 0.6);
+    animation: flicker 3s infinite ease-in-out;
+}
+
+.flame .bottom {
+    width: 12px;
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 255, 0.4); /* Blue Core */
+    border-radius: 50%;
+}
+
+@keyframes flicker {
+    0%   { transform: skewX(2deg) scaleY(1); }
+    20%  { transform: skewX(-2deg) scaleY(1.05); }
+    40%  { transform: skewX(2deg) scaleY(1); }
+    60%  { transform: skewX(-1deg) scaleY(0.95) rotate(1deg); }
+    80%  { transform: skewX(1deg) scaleY(1.05) rotate(-1deg); }
+    100% { transform: skewX(2deg) scaleY(1); }
+}
+
+/* --- TEMPLUM PHYSICUM (Photo Gallery) --- */
+.altar-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.altar-frame {
+    position: relative;
+    background: #0e001f;
+    padding: 5px;
+    border: 1px solid #d4af37;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+}
+
+.altar-frame:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+}
+
+.altar-frame img {
+    display: block;
+    max-height: 250px;
+    width: auto;
+    border-radius: 2px;
+    filter: sepia(20%) contrast(110%); /* Magical filter */
+}
+
+.caption {
+    display: block;
+    text-align: center;
+    font-size: 0.8em;
+    color: #e0d4b0;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* --- CELESTIAL & TOOLS --- */
+.celestial {
+    background: rgba(75, 0, 130, 0.3);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #d4af37;
+}
+
+#moon-phase, #planetary-hours {
+    margin: 10px 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+}
+
+button {
+    background: #4b0082;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-family: 'IM Fell English SC', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    background: #6a0dad;
+    box-shadow: 0 0 15px #d4af37;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background: rgba(26, 0, 51, 0.8);
+    color: #ffd700;
+    border: 1px solid #d4af37;
+    border-radius: 5px;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 1.1em;
+}
+
+canvas {
+    display: block;
+    margin: 20px auto;
+    border: 1px dashed #d4af37;
+    background: #000; /* Void black for sigils */
+    border-radius: 50%; /* Circle canvas */
+    box-shadow: 0 0 20px rgba(75, 0, 130, 0.5);
+}
+
+/* --- REFERENCE TABLES --- */
+details {
+    margin: 30px 0;
+    border: 1px solid #d4af37;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(0,0,0,0.5);
+}
+
+summary {
+    padding: 15px;
+    background: #4b0082;
+    cursor: pointer;
+    font-size: 1.1em;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #555;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background: #2a004d;
+    color: #d4af37;
+}
+
+/* Logs */
+#log-list {
+    list-style: none;
+    padding: 0;
+}
+
+#log-list li {
+    background: rgba(255, 215, 0, 0.05);
+    margin: 8px 0;
+    padding: 10px;
+    border-left: 3px solid #d4af37;
+}
