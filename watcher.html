@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="la">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watcher's Adytum</title>
+    <link rel="stylesheet" href="watcher-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+</head>
+<body class="watcher-theme">
+
+    <div class="grimoire-wrapper">
+        <div class="the-eye" id="watcher-eye">
+            <div class="iris"></div>
+        </div>
+
+        <header class="watcher-intro">
+            <h1>WATCHER'S ADYTUM</h1>
+            <div class="legacy-marker">EST. 2009</div>
+        </header>
+
+        <main class="grimoire-body">
+    <section class="page left-page">
+        <h2 class="page-title">Index Librorum</h2>
+        
+        <button id="toggle-input" class="pentagram-btn small">New Inscription</button>
+
+        <div id="index-list" class="scrollable-index">
+            </div>
+
+        <div id="entry-form" class="hidden">
+            <input type="text" id="entry-title" placeholder="Vision Title...">
+            <textarea id="watcher-input" placeholder="Inscribe your truth..."></textarea>
+            <button id="seal-entry" class="pentagram-btn">SEAL IN LIGHT</button>
+        </div>
+    </section>
+
+    <section class="page right-page">
+        <h2 id="display-title" class="page-title">Speculum</h2>
+        <div id="display-content" class="vision-display">
+            <p class="placeholder-text">Select a link from the Index to summon a vision.</p>
+        </div>
+    </section>
+</main>
+
+        <nav class="portal-nav">
+            <a href="index.html" class="return-link">← Return to the Altar</a>
+        </nav>
+    </div>
+
+    <script src="watcher-logic.js"></script>
+</body>
+</html>
