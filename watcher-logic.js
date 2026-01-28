@@ -7,7 +7,7 @@ const displayTitle = document.getElementById('display-title');
 const displayContent = document.getElementById('display-content');
 
 // REPLACE THIS with your actual Render Web Service URL
-const API_URL = 'https://your-render-app-name.onrender.com/api/entries';
+const API_URL = 'https://fire041988.onrender.com/api/entries';
 
 // 1. TOGGLE: Switch between the Index and the Inscription form
 toggleBtn.addEventListener('click', () => {
