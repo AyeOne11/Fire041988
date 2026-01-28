@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watcher's Adytum</title>
+    <title>Speculum Mentis - Watcher's Adytum</title>
     <link rel="stylesheet" href="watcher-style.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
 </head>
@@ -15,33 +15,38 @@
         </div>
 
         <header class="watcher-intro">
-            <h1>WATCHER'S ADYTUM</h1>
+            <h1>SPECULUM MENTIS</h1>
+            <p><em>"I see that which is written in the silence of the mind."</em></p>
             <div class="legacy-marker">EST. 2009</div>
         </header>
 
         <main class="grimoire-body">
-    <section class="page left-page">
-        <h2 class="page-title">Index Librorum</h2>
-        
-        <button id="toggle-input" class="pentagram-btn small">New Inscription</button>
+            <section class="page left-page">
+                <h2 class="page-title">Index Librorum</h2>
+                
+                <button id="toggle-input" class="pentagram-btn small">New Inscription</button>
 
-        <div id="index-list" class="scrollable-index">
-            </div>
+                <div id="index-list" class="scrollable-index">
+                    </div>
 
-        <div id="entry-form" class="hidden">
-            <input type="text" id="entry-title" placeholder="Vision Title...">
-            <textarea id="watcher-input" placeholder="Inscribe your truth..."></textarea>
-            <button id="seal-entry" class="pentagram-btn">SEAL IN LIGHT</button>
-        </div>
-    </section>
+                <div id="entry-form" class="hidden">
+                    <input type="text" id="entry-title" placeholder="Identify the Vision...">
+                    <textarea id="watcher-input" placeholder="Inscribe your truth here..."></textarea>
+                    <div class="seal-action">
+                        <button id="seal-entry" class="pentagram-btn">
+                            <span class="pentagram-icon">⛤</span> SEAL IN LIGHT
+                        </button>
+                    </div>
+                </div>
+            </section>
 
-    <section class="page right-page">
-        <h2 id="display-title" class="page-title">Speculum</h2>
-        <div id="display-content" class="vision-display">
-            <p class="placeholder-text">Select a link from the Index to summon a vision.</p>
-        </div>
-    </section>
-</main>
+            <section class="page right-page">
+                <h2 id="display-title" class="page-title">Speculum</h2>
+                <div id="display-content" class="vision-display">
+                    <p class="placeholder-text">Select a link from the Index to summon a vision.</p>
+                </div>
+            </section>
+        </main>
 
         <nav class="portal-nav">
             <a href="index.html" class="return-link">← Return to the Altar</a>
