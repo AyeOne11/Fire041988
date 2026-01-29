@@ -9,7 +9,7 @@ app.use(express.json());
 
 // The Connection Pool with Conditional SSL
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false 
   }
@@ -60,3 +60,4 @@ app.post('/api/entries', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`The Gateway is active on port ${PORT}`));
+
