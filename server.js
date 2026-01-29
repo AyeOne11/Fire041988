@@ -7,14 +7,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// The Connection Pool
+// The Connection Pool with Conditional SSL
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false // This allows the connection to proceed without a local certificate
+    rejectUnauthorized: false 
   }
 });
-// STARTUP RITUAL: Auto-create the table if it doesn't exist
+
+// STARTUP RITUAL: Manifest the table structure
 const initDb = async () => {
     const queryText = `
         CREATE TABLE IF NOT EXISTS watcher_entries (
@@ -33,7 +34,7 @@ const initDb = async () => {
 };
 initDb();
 
-// API: Get all entries (The Index)
+// API: Summon the Index
 app.get('/api/entries', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM watcher_entries ORDER BY created_at DESC');
@@ -43,7 +44,7 @@ app.get('/api/entries', async (req, res) => {
     }
 });
 
-// API: Save new entry (The Seal)
+// API: Seal a New Inscription
 app.post('/api/entries', async (req, res) => {
     const { title, content } = req.body;
     try {
