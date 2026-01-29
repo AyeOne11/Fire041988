@@ -1,110 +1,204 @@
-/* --- WATCHER LOGIC: The Bridge to the Cloud --- */
-
-const indexList = document.getElementById('index-list');
-const entryForm = document.getElementById('entry-form');
-const toggleBtn = document.getElementById('toggle-input');
-const displayTitle = document.getElementById('display-title');
-const displayContent = document.getElementById('display-content');
-
-// REPLACE THIS with your actual Render Web Service URL
-API_URL = 'http://localhost:3000/api/entries';
-
-// 1. TOGGLE: Switch between the Index and the Inscription form
-toggleBtn.addEventListener('click', () => {
-    if (entryForm.classList.contains('hidden')) {
-        entryForm.classList.remove('hidden');
-        indexList.classList.add('hidden');
-        toggleBtn.innerText = "Back to Index";
-    } else {
-        entryForm.classList.add('hidden');
-        indexList.classList.remove('hidden');
-        toggleBtn.innerText = "New Inscription";
-    }
-});
-
-// 2. RENDER: Fetch and manifest the Index from the PostgreSQL Aether
-async function renderIndex() {
-    try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error("The Gateway failed to respond.");
-        
-        const logs = await response.json();
-        indexList.innerHTML = '';
-        
-        logs.forEach((log) => {
-            const item = document.createElement('div');
-            item.className = 'index-item';
-            // Displaying the date from the database timestamp
-            const logDate = new Date(log.created_at).toLocaleDateString();
-            item.innerHTML = `<small>${logDate}</small><br><strong>${log.title}</strong>`;
-            
-            // Pass the entire log object to the show function
-            item.onclick = () => showVision(log);
-            indexList.appendChild(item);
-        });
-    } catch (err) {
-        console.error("Summoning Index failed:", err);
-        indexList.innerHTML = "<p style='color:red;'>Failed to connect to the Archive. Is the Server awake?</p>";
-    }
+/* --- GLOBAL THEME --- */
+body.watcher-theme {
+    background: 
+        linear-gradient(rgba(26, 0, 51, 0.9), rgba(10, 0, 26, 0.95)),
+        url('images/the_door.jpg'); /* Linking back to your primary art */
+    background-size: cover;
+    background-attachment: fixed;
+    color: #e0d4b0;
+    font-family: 'IM Fell English SC', serif;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
 }
 
-// 3. SUMMON: Reflect the selected vision on the Right Page (The Speculum)
-function showVision(log) {
-    displayTitle.innerText = log.title;
-    displayContent.innerHTML = `
-        <div class="vision-text">${log.content}</div>
-        <p style="font-size: 0.8em; opacity: 0.5; margin-top: 30px;">
-            Inscribed on: ${new Date(log.created_at).toLocaleString()}
-        </p>
-    `;
-    
-    // Ritual Flicker: The Eye acknowledges the summon
-    const eye = document.getElementById('watcher-eye');
-    eye.style.boxShadow = "0 0 50px #ffd700";
-    setTimeout(() => { 
-        eye.style.boxShadow = "0 0 25px rgba(212, 175, 55, 0.4)"; 
-    }, 600);
+.grimoire-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
 }
 
-// 4. SEAL: Transfer the mental record to the Cloud Database
-document.getElementById('seal-entry').onclick = async () => {
-    const titleInput = document.getElementById('entry-title');
-    const textInput = document.getElementById('watcher-input');
-    
-    if(!titleInput.value || !textInput.value) {
-        alert("A vision requires both a Name and a Substance.");
-        return;
-    }
+/* --- THE WATCHING EYE (Centered above the spine) --- */
+.the-eye {
+    width: 80px;
+    height: 50px;
+    background: #fff;
+    border-radius: 50% / 100% 100% 0 0;
+    margin: 0 auto 10px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #d4af37;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+    transform: rotate(180deg);
+    z-index: 10;
+}
 
-    const payload = {
-        title: titleInput.value,
-        content: textInput.value
-    };
+.iris {
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle, #4b0082, #000);
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    left: 25px;
+    animation: watch-movement 10s infinite ease-in-out;
+}
 
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
+@keyframes watch-movement {
+    0%, 100% { transform: translateX(0); }
+    30% { transform: translateX(-12px); }
+    70% { transform: translateX(12px); }
+}
 
-        if (response.ok) {
-            // Reset and return to Index
-            titleInput.value = '';
-            textInput.value = '';
-            await renderIndex(); // Refresh from DB
-            
-            entryForm.classList.add('hidden');
-            indexList.classList.remove('hidden');
-            toggleBtn.innerText = "New Inscription";
-        } else {
-            throw new Error("The Seal was rejected by the Database.");
-        }
-    } catch (err) {
-        console.error("Sealing failed:", err);
-        alert("The Archive could not be reached. Check your connection.");
-    }
-};
+/* --- THE OPEN BOOK LAYOUT --- */
+.grimoire-body {
+    display: flex;
+    background: rgba(20, 0, 40, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+    position: relative;
+    min-height: 700px;
+}
 
-// Initial Render on page load
-renderIndex();
+/* The Spine Crease */
+.grimoire-body::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.4), transparent);
+    box-shadow: 0 0 15px rgba(0,0,0,1);
+}
+
+.page {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-title {
+    font-family: 'Cinzel Decorative', cursive;
+    color: #ffd700;
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* --- INPUTS & TEXT --- */
+#entry-title {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    color: #ffd700;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+#watcher-input {
+    background: transparent;
+    border: none;
+    flex-grow: 1;
+    color: #e0d4b0;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    resize: none;
+    outline: none;
+}
+
+/* --- THE PENTAGRAM SEAL --- */
+.pentagram-btn {
+    background: #2a004d;
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    padding: 15px;
+    cursor: pointer;
+    font-family: 'IM Fell English SC', serif;
+    letter-spacing: 2px;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.pentagram-btn:hover {
+    background: #4b0082;
+    box-shadow: 0 0 20px #d4af37;
+}
+
+/* --- ARCHIVE SCROLLBAR --- */
+.scrollable-archive {
+    overflow-y: auto;
+    max-height: 600px;
+    padding-right: 10px;
+}
+
+.scrollable-archive::-webkit-scrollbar { width: 4px; }
+.scrollable-archive::-webkit-scrollbar-thumb { background: #d4af37; }
+
+/* Navigation */
+.portal-nav { text-align: center; margin-top: 30px; }
+.return-link { color: #d4af37; text-decoration: none; opacity: 0.7; }
+.return-link:hover { opacity: 1; }
+
+/* Index Link Styling */
+.index-item {
+    padding: 12px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    cursor: pointer;
+    transition: 0.3s;
+    display: block;
+    color: #e0d4b0;
+    text-decoration: none;
+}
+
+.index-item:hover {
+    background: rgba(212, 175, 55, 0.1);
+    color: #ffd700;
+    padding-left: 20px; /* Subtle movement effect */
+}
+
+/* Vision Display (Right Page) */
+.vision-display {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #e0d4b0;
+    white-space: pre-wrap; /* Preserves line breaks from textarea */
+}
+
+.hidden { display: none; }
+
+.small { padding: 8px 15px; font-size: 0.9rem; margin-bottom: 20px; }
+
+.scrollable-index {
+    max-height: 500px;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+/* Eye Flicker State */
+#watcher-eye.active {
+    box-shadow: 0 0 40px #ffd700;
+    transition: box-shadow 0.1s;
+}
+
+.vision-display {
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    min-height: 400px;
+    font-style: italic; /* Makes the record feel like a vision */
+}
+
+.placeholder-text {
+    opacity: 0.4;
+    text-align: center;
+    margin-top: 100px;
+}
