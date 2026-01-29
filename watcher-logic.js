@@ -6,10 +6,12 @@ const toggleBtn = document.getElementById('toggle-input');
 const displayTitle = document.getElementById('display-title');
 const displayContent = document.getElementById('display-content');
 
-// REPLACE THIS with your actual Render Web Service URL
+// LIVE URL: Use this when uploading to GitHub
 const API_URL = 'https://fire041988.onrender.com/api/entries';
+// LOCAL URL: Use this only for local testing
+// const API_URL = 'http://localhost:3000/api/entries';
 
-// 1. TOGGLE: Switch between the Index and the Inscription form
+// 1. TOGGLE: Switch between Index and Form
 toggleBtn.addEventListener('click', () => {
     if (entryForm.classList.contains('hidden')) {
         entryForm.classList.remove('hidden');
@@ -22,7 +24,7 @@ toggleBtn.addEventListener('click', () => {
     }
 });
 
-// 2. RENDER: Fetch and manifest the Index from the PostgreSQL Aether
+// 2. RENDER: Fetch from the Aether
 async function renderIndex() {
     try {
         const response = await fetch(API_URL);
@@ -34,11 +36,8 @@ async function renderIndex() {
         logs.forEach((log) => {
             const item = document.createElement('div');
             item.className = 'index-item';
-            // Displaying the date from the database timestamp
             const logDate = new Date(log.created_at).toLocaleDateString();
             item.innerHTML = `<small>${logDate}</small><br><strong>${log.title}</strong>`;
-            
-            // Pass the entire log object to the show function
             item.onclick = () => showVision(log);
             indexList.appendChild(item);
         });
@@ -48,7 +47,7 @@ async function renderIndex() {
     }
 }
 
-// 3. SUMMON: Reflect the selected vision on the Right Page (The Speculum)
+// 3. SUMMON: Display on the Right Page
 function showVision(log) {
     displayTitle.innerText = log.title;
     displayContent.innerHTML = `
@@ -57,8 +56,6 @@ function showVision(log) {
             Inscribed on: ${new Date(log.created_at).toLocaleString()}
         </p>
     `;
-    
-    // Ritual Flicker: The Eye acknowledges the summon
     const eye = document.getElementById('watcher-eye');
     eye.style.boxShadow = "0 0 50px #ffd700";
     setTimeout(() => { 
@@ -66,7 +63,7 @@ function showVision(log) {
     }, 600);
 }
 
-// 4. SEAL: Transfer the mental record to the Cloud Database
+// 4. SEAL: Transfer record to Database
 document.getElementById('seal-entry').onclick = async () => {
     const titleInput = document.getElementById('entry-title');
     const textInput = document.getElementById('watcher-input');
@@ -76,10 +73,7 @@ document.getElementById('seal-entry').onclick = async () => {
         return;
     }
 
-    const payload = {
-        title: titleInput.value,
-        content: textInput.value
-    };
+    const payload = { title: titleInput.value, content: textInput.value };
 
     try {
         const response = await fetch(API_URL, {
@@ -89,22 +83,19 @@ document.getElementById('seal-entry').onclick = async () => {
         });
 
         if (response.ok) {
-            // Reset and return to Index
             titleInput.value = '';
             textInput.value = '';
-            await renderIndex(); // Refresh from DB
-            
+            await renderIndex();
             entryForm.classList.add('hidden');
             indexList.classList.remove('hidden');
             toggleBtn.innerText = "New Inscription";
         } else {
-            throw new Error("The Seal was rejected by the Database.");
+            throw new Error("The Seal was rejected.");
         }
     } catch (err) {
         console.error("Sealing failed:", err);
-        alert("The Archive could not be reached. Check your connection.");
+        alert("The Archive could not be reached.");
     }
 };
 
-// Initial Render on page load
 renderIndex();
