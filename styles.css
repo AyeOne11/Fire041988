@@ -280,3 +280,23 @@ th {
     padding: 10px;
     border-left: 3px solid #d4af37;
 }
+
+.portal-btn {
+    display: block;
+    text-align: center;
+    background: #4b0082; /* Violet from Watcher's skin */
+    color: #ffd700;
+    padding: 15px;
+    text-decoration: none;
+    border: 1px solid #d4af37;
+    border-radius: 8px;
+    font-family: 'Cinzel Decorative', cursive;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px rgba(75, 0, 130, 0.5);
+}
+
+.portal-btn:hover {
+    background: #6a0dad;
+    box-shadow: 0 0 20px #d4af37;
+    transform: scale(1.02);
+}
