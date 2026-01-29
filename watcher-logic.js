@@ -1,123 +1,112 @@
-/* --- WATCHER LOGIC: The Bridge to the Cloud --- */
+const API_URL = 'https://fire041988.onrender.com/api/entries';
 
 const indexList = document.getElementById('index-list');
-const entryForm = document.getElementById('entry-form');
-const toggleBtn = document.getElementById('toggle-input');
 const displayTitle = document.getElementById('display-title');
 const displayContent = document.getElementById('display-content');
+const entryForm = document.getElementById('entry-form');
+const toggleBtn = document.getElementById('toggle-input');
+const sealBtn = document.getElementById('seal-entry');
 
-// LIVE URL: Use this when uploading to GitHub
-const API_URL = 'https://fire041988.onrender.com/api/entries';
-// LOCAL URL: Use this only for local testing
-// const API_URL = 'http://localhost:3000/api/entries';
+let isEditing = false;
+let currentEditId = null;
 
-// 1. TOGGLE: Switch between Index and Form
-toggleBtn.addEventListener('click', () => {
-    if (entryForm.classList.contains('hidden')) {
-        entryForm.classList.remove('hidden');
-        indexList.classList.add('hidden');
-        toggleBtn.innerText = "Back to Index";
-    } else {
-        entryForm.classList.add('hidden');
-        indexList.classList.remove('hidden');
-        toggleBtn.innerText = "New Inscription";
-    }
-});
+// --- INITIALIZATION ---
+window.addEventListener('load', loadEntries);
 
-// 2. RENDER: Fetch from the Aether
-async function renderIndex() {
+async function loadEntries() {
     try {
         const response = await fetch(API_URL);
-        if (!response.ok) throw new Error("The Gateway failed to respond.");
-        
-        const logs = await response.json();
-        indexList.innerHTML = '';
-        
-        logs.forEach((log) => {
-            const item = document.createElement('div');
-            item.className = 'index-item';
-            const logDate = new Date(log.created_at).toLocaleDateString();
-            item.innerHTML = `<small>${logDate}</small><br><strong>${log.title}</strong>`;
-            item.onclick = () => showVision(log);
-            indexList.appendChild(item);
-        });
+        const entries = await response.json();
+        renderIndex(entries);
     } catch (err) {
-        console.error("Summoning Index failed:", err);
-        indexList.innerHTML = "<p style='color:red;'>Failed to connect to the Archive. Is the Server awake?</p>";
+        console.error("Failed to fetch from the Archive:", err);
     }
 }
 
-// 3. SUMMON: Display on the Right Page
-function showVision(log) {
-    displayTitle.innerText = log.title;
-    displayContent.innerHTML = `
-        <div class="vision-text">${log.content}</div>
-        <p style="font-size: 0.8em; opacity: 0.5; margin-top: 30px;">
-            Inscribed on: ${new Date(log.created_at).toLocaleString()}
-        </p>
-    `;
-    const eye = document.getElementById('watcher-eye');
-    eye.style.boxShadow = "0 0 50px #ffd700";
-    setTimeout(() => { 
-        eye.style.boxShadow = "0 0 25px rgba(212, 175, 55, 0.4)"; 
-    }, 600);
+function renderIndex(entries) {
+    indexList.innerHTML = '';
+    entries.forEach(entry => {
+        const link = document.createElement('a');
+        link.className = 'index-item';
+        link.textContent = entry.title || "Untitled Vision";
+        link.onclick = () => showEntry(entry);
+        indexList.appendChild(link);
+    });
 }
 
-// 4. SEAL: Transfer record to Database
-document.getElementById('seal-entry').onclick = async () => {
-    const titleInput = document.getElementById('entry-title');
-    const textInput = document.getElementById('watcher-input');
-    
-    if(!titleInput.value || !textInput.value) {
-        alert("A vision requires both a Name and a Substance.");
-        return;
-    }
-
-    const payload = { title: titleInput.value, content: textInput.value };
-
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-
-        if (response.ok) {
-            titleInput.value = '';
-            textInput.value = '';
-            await renderIndex();
-            entryForm.classList.add('hidden');
-            indexList.classList.remove('hidden');
-            toggleBtn.innerText = "New Inscription";
-        } else {
-            throw new Error("The Seal was rejected.");
-        }
-    } catch (err) {
-        console.error("Sealing failed:", err);
-        alert("The Archive could not be reached.");
-    }
-};
-
-// Function to Dissolve an Entry
-async function deleteEntry(id) {
-    if (confirm("Are you sure you wish to dissolve this record forever?")) {
-        await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-        loadEntries(); // Refresh the list
-        displayContent.innerHTML = '<p class="placeholder-text">The record has been dissolved.</p>';
-    }
-}
-
-// Update the 'showEntry' function to include an 'Edit' and 'Delete' button
+// --- SHOW ENTRY (With Revise/Dissolve Buttons) ---
 function showEntry(entry) {
     displayTitle.textContent = entry.title;
     displayContent.innerHTML = `
-        <div class="vision-display">${entry.content}</div>
-        <div class="action-row" style="margin-top: 20px; display: flex; gap: 10px;">
+        <div class="vision-text">${entry.content}</div>
+        <div class="action-row">
             <button onclick='prepEdit(${JSON.stringify(entry)})' class="pentagram-btn small">REVISE</button>
-            <button onclick="deleteEntry(${entry.id})" class="pentagram-btn small" style="border-color: #ff4444; color: #ff4444;">DISSOLVE</button>
+            <button onclick="dissolveEntry(${entry.id})" class="pentagram-btn small dissolve">DISSOLVE</button>
         </div>
     `;
 }
 
+// --- DISSOLVE (DELETE) ---
+async function dissolveEntry(id) {
+    if (confirm("Are you sure you wish to dissolve this record into the void?")) {
+        try {
+            await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+            loadEntries();
+            displayTitle.textContent = "Speculum";
+            displayContent.innerHTML = '<p class="placeholder-text">The record has been dissolved.</p>';
+        } catch (err) {
+            alert("The void resisted. Error: " + err.message);
+        }
+    }
+}
 
-renderIndex();
+// --- REVISE (EDIT) ---
+function prepEdit(entry) {
+    isEditing = true;
+    currentEditId = entry.id;
+    
+    document.getElementById('entry-title').value = entry.title;
+    document.getElementById('watcher-input').value = entry.content;
+    
+    entryForm.classList.remove('hidden');
+    sealBtn.innerHTML = '<span class="pentagram-icon">⛤</span> RE-SEAL IN LIGHT';
+    
+    // Smooth scroll back to input
+    entryForm.scrollIntoView({ behavior: 'smooth' });
+}
+
+// --- SEALING (CREATE/UPDATE) ---
+sealBtn.onclick = async () => {
+    const title = document.getElementById('entry-title').value;
+    const content = document.getElementById('watcher-input').value;
+
+    const method = isEditing ? 'PUT' : 'POST';
+    const url = isEditing ? `${API_URL}/${currentEditId}` : API_URL;
+
+    try {
+        await fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, content })
+        });
+
+        // Reset Form
+        document.getElementById('entry-title').value = '';
+        document.getElementById('watcher-input').value = '';
+        isEditing = false;
+        currentEditId = null;
+        sealBtn.innerHTML = '<span class="pentagram-icon">⛤</span> SEAL IN LIGHT';
+        
+        loadEntries();
+        alert("The record has been manifested.");
+    } catch (err) {
+        console.error("Seal failed:", err);
+    }
+};
+
+// Toggle form visibility
+toggleBtn.onclick = () => {
+    entryForm.classList.toggle('hidden');
+    isEditing = false;
+    sealBtn.innerHTML = '<span class="pentagram-icon">⛤</span> SEAL IN LIGHT';
+};
