@@ -10,9 +10,10 @@ app.use(express.json());
 // The Connection Pool
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
+  ssl: {
+    rejectUnauthorized: false // This allows the connection to proceed without a local certificate
+  }
 });
-
 // STARTUP RITUAL: Auto-create the table if it doesn't exist
 const initDb = async () => {
     const queryText = `
