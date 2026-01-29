@@ -76,6 +76,30 @@ app.post('/api/entries', async (req, res) => {
     }
 });
 
+// DELETE: The Rite of Dissolution
+app.delete('/api/entries/:id', async (req, res) => {
+    try {
+        await pool.query('DELETE FROM watcher_entries WHERE id = $1', [req.params.id]);
+        res.json({ message: "Entry dissolved into the void." });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// PUT: The Rite of Revision
+app.put('/api/entries/:id', async (req, res) => {
+    const { title, content } = req.body;
+    try {
+        const result = await pool.query(
+            'UPDATE watcher_entries SET title = $1, content = $2 WHERE id = $3 RETURNING *',
+            [title, content, req.params.id]
+        );
+        res.json(result.rows[0]);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // Add a basic "Health Check" route for the main URL
 app.get('/', (req, res) => {
     res.send("The Gateway is standing by. API is at /api/entries");
@@ -83,3 +107,4 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`The Gateway is active on port ${PORT}`));
+
