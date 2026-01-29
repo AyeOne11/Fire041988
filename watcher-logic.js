@@ -98,4 +98,26 @@ document.getElementById('seal-entry').onclick = async () => {
     }
 };
 
+// Function to Dissolve an Entry
+async function deleteEntry(id) {
+    if (confirm("Are you sure you wish to dissolve this record forever?")) {
+        await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+        loadEntries(); // Refresh the list
+        displayContent.innerHTML = '<p class="placeholder-text">The record has been dissolved.</p>';
+    }
+}
+
+// Update the 'showEntry' function to include an 'Edit' and 'Delete' button
+function showEntry(entry) {
+    displayTitle.textContent = entry.title;
+    displayContent.innerHTML = `
+        <div class="vision-display">${entry.content}</div>
+        <div class="action-row" style="margin-top: 20px; display: flex; gap: 10px;">
+            <button onclick='prepEdit(${JSON.stringify(entry)})' class="pentagram-btn small">REVISE</button>
+            <button onclick="deleteEntry(${entry.id})" class="pentagram-btn small" style="border-color: #ff4444; color: #ff4444;">DISSOLVE</button>
+        </div>
+    `;
+}
+
+
 renderIndex();
