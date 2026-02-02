@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Athenaeum - Manuscript Forge</title>
+    <link rel="stylesheet" href="athenaeum-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body class="scriptorium-theme">
+    <div class="workspace-container">
+        <aside class="manuscript-sidebar">
+            <h2 class="sidebar-title">THE ARCHIVE</h2>
+            <button id="new-chapter" class="forge-btn">+ New Chapter</button>
+            <div id="chapter-list" class="scroll-list"></div>
+        </aside>
+
+        <main class="writing-desk">
+            <div class="editor-header">
+                <input type="text" id="chapter-title" placeholder="Untitled Chapter...">
+                <div class="stats-bar">
+                    Words: <span id="word-count">0</span> | 
+                    <span id="save-status">Ready</span> |
+                    <button id="zen-toggle" class="zen-btn">ENTER THE VOID</button>
+                </div>
+            </div>
+            
+            <textarea id="manuscript-editor" placeholder="Begin your work here..."></textarea>
+        </main>
+    </div>
+
+    <nav class="portal-nav">
+        <a href="index.html" class="return-link">← Return to the Altar</a>
+    </nav>
+
+    <script src="athenaeum-logic.js"></script>
+</body>
+</html>

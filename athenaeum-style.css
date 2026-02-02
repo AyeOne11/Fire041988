@@ -1,0 +1,188 @@
+body.scriptorium-theme {
+    background: #1a1a1a; /* Dark charcoal */
+    color: #d1c7b7;
+    font-family: 'EB Garamond', serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.workspace-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Sidebar */
+.manuscript-sidebar {
+    width: 250px;
+    background: #121212;
+    border-right: 1px solid #333;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* The Forge Editor */
+.writing-desk {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 10%;
+    background: #1e1e1e;
+}
+
+#chapter-title {
+    background: transparent;
+    border: none;
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: #d4af37;
+    margin-bottom: 10px;
+    outline: none;
+}
+
+#manuscript-editor {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #e0d4b0;
+    font-size: 1.3rem;
+    line-height: 1.8;
+    resize: none;
+    outline: none;
+    padding-top: 20px;
+}
+
+.stats-bar {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+.forge-btn {
+    background: transparent;
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+.forge-btn:hover {
+    background: #d4af37;
+    color: #121212;
+}
+
+.scroll-list {
+    margin-top: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.sidebar-item {
+    padding: 12px;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.sidebar-item:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-left: 3px solid #d4af37;
+}
+
+.chapter-link {
+    color: #d4af37;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.sidebar-item small {
+    color: #666;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+.sidebar-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+}
+
+.chapter-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.delete-chapter-btn {
+    background: transparent;
+    border: none;
+    color: #666;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.2s;
+    padding: 0 5px;
+}
+
+.delete-chapter-btn:hover {
+    color: #ff4444;
+    transform: scale(1.2);
+}
+
+.active-chapter {
+    background: rgba(212, 175, 55, 0.15);
+    border-left: 3px solid #d4af37;
+}
+
+/* Zen Mode Toggle Button */
+.zen-btn {
+    background: transparent;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: #d4af37;
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    padding: 2px 8px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.zen-btn:hover {
+    background: #d4af37;
+    color: #121212;
+}
+
+/* Transitions for Smooth Entrance */
+.manuscript-sidebar, .writing-desk, .editor-header {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* The Zen State Classes */
+body.zen-active .manuscript-sidebar {
+    width: 0;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+body.zen-active .writing-desk {
+    padding: 60px 20%; /* Centers the text even more */
+}
+
+body.zen-active .portal-nav, 
+body.zen-active .sidebar-title,
+body.zen-active #new-chapter {
+    display: none;
+}
