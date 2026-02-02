@@ -349,3 +349,60 @@ th {
         grid-template-columns: 1fr;
     }
 }
+
+/* --- THE DIGITALIS HUB STYLES --- */
+.portal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+}
+
+.portal-link {
+    text-decoration: none;
+    padding: 25px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: rgba(26, 0, 51, 0.6);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.portal-name {
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.4rem;
+    color: #ffd700;
+    letter-spacing: 3px;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+.portal-sub {
+    font-size: 0.7rem;
+    color: rgba(212, 175, 55, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'IM Fell English SC', serif;
+}
+
+/* Hover States */
+.portal-link:hover {
+    background: rgba(75, 0, 130, 0.4);
+    border-color: #ffd700;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+    transform: translateY(-5px);
+}
+
+.forge-theme:hover {
+    background: rgba(212, 175, 55, 0.15);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    .portal-grid {
+        grid-template-columns: 1fr;
+    }
+}
