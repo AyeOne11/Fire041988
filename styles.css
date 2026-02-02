@@ -280,3 +280,27 @@ th {
     padding: 10px;
     border-left: 3px solid #d4af37;
 }
+/* --- PORTAL BUTTONS --- */
+.portal-btn {
+    text-decoration: none;
+    background: #4b0082;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-family: 'IM Fell English SC', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.portal-btn:hover {
+    background: #6a0dad;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    color: #fff;
+}
