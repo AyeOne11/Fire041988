@@ -72,20 +72,26 @@
         </section>
 
         <section class="grimoire">
-            <h2>The Watcher's Log & Scriptorium</h2>
-            <p><em>Verba volant, scripta manent.</em></p>
-            
-            <div class="watcher-portal" style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px;">
-                <a href="watcher.html" class="portal-btn">Open the Speculum Mentis</a>
-                <a href="athenaeum.html" class="portal-btn" style="background: #d4af37; color: #1a0031;">Enter the Athenaeum Forge</a>
-            </div>
+    <h2 style="margin-bottom: 25px;">The Digitalis Archive</h2>
+    
+    <div class="portal-grid">
+        <a href="watcher.html" class="portal-link">
+            <span class="portal-name">WATCHER</span>
+            <span class="portal-sub">Speculum Mentis Archive</span>
+        </a>
+        
+        <a href="athenaeum.html" class="portal-link forge-theme">
+            <span class="portal-name">ATHENAEUM</span>
+            <span class="portal-sub">Manuscript Scriptorium</span>
+        </a>
+    </div>
 
-            <hr style="border: 0; border-top: 1px solid #d4af37; margin: 20px 0; opacity: 0.2;">
-            
-            <textarea id="note" rows="4" placeholder="Record immediate vision..."></textarea>
-            <button id="seal-note">Seal & Archive Locally</button>
-            <ul id="log-list"></ul>
-        </section>
+    <div style="display:none;">
+        <textarea id="note"></textarea>
+        <button id="seal-note"></button>
+        <ul id="log-list"></ul>
+    </div>
+</section>
 
         <details class="alphabet-reference">
             <summary><h2>Latin Correspondences (Reference)</h2></summary>
