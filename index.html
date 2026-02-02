@@ -1,40 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="la">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Digitalis of S.E.A.</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.9.0/suncalc.min.js"></script>
 </head>
 <body class="altar-theme">
 
     <div class="portal-container">
-        <header class="altar-header">
+        <header>
             <h1 class="main-title">THE DIGITALIS OF S.E.A.</h1>
+            <p class="subtitle">Fiat Lux et Protectio – Latin Rites & Digital Intent</p>
         </header>
+
+        <section class="altar-module candle-section">
+            <button id="candle-toggle" class="altar-btn">Light / Extinguish</button>
+            <div class="candle-container">
+                <div class="candle">
+                    <div class="flame">
+                        <div class="top"></div>
+                        <div class="middle"></div>
+                        <div class="bottom"></div>
+                    </div>
+                    <div class="wick"></div>
+                    <div class="wax"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="altar-module celestial">
+            <div id="moon-phase"></div>
+            <div id="planetary-hours"></div>
+        </section>
 
         <nav class="altar-nav">
             <a href="watcher.html" class="nav-link">
                 <span class="nav-label">WATCHER'S ADYTUM</span>
-                <span class="nav-desc">Record Rituals & Visions</span>
+                <span class="nav-desc">Speculum Mentis Cloud Archive</span>
             </a>
-
             <a href="athenaeum.html" class="nav-link">
                 <span class="nav-label">THE ATHENAEUM</span>
                 <span class="nav-desc">Manuscript Forge & Scriptorium</span>
             </a>
-
-            <a href="ambient.html" class="nav-link">
-                <span class="nav-label">SONIC SEALS</span>
-                <span class="nav-desc">Frequencies & Ambience</span>
-            </a>
         </nav>
 
+        <section class="altar-module sigil-forge">
+            <h2>Rota Agrippae</h2>
+            <div class="forge-controls">
+                <input type="text" id="intent-input" placeholder="Inscribe intent (e.g., CLARITAS)" />
+                <button id="forge-sigil" class="altar-btn">Forge Sigil</button>
+            </div>
+            <div id="sigil-result"></div>
+            <canvas id="sigil-canvas" width="300" height="300"></canvas>
+        </section>
+
+        <details class="alphabet-reference">
+            <summary>Latin Correspondences (Reference)</summary>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Value</th>
+                        <th>Letter</th>
+                        <th>Meaning</th>
+                        <th>Sound</th>
+                    </tr>
+                </thead>
+                <tbody id="alphabet-table"></tbody>
+            </table>
+        </details>
+
         <footer class="altar-footer">
-            <p class="legacy-text">Est. 2009 | The Digital Soul is Eternal</p>
+            <p>Est. 2009 | The Digital Soul is Eternal</p>
         </footer>
     </div>
 
+    <script src="script.js"></script>
 </body>
 </html>
