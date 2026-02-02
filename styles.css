@@ -300,3 +300,13 @@ th {
     box-shadow: 0 0 20px #d4af37;
     transform: scale(1.02);
 }
+.date-marker {
+    font-size: 0.75rem;
+    color: #d4af37;
+    opacity: 0.6;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    padding-bottom: 5px;
+    text-transform: uppercase;
+}
