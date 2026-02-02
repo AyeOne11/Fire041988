@@ -247,6 +247,35 @@ document.getElementById('forge-sigil').addEventListener('click', () => {
 });
 
 // ==========================================
+// 4. GRIMOIRE LOG (Persistent)
+// ==========================================
+function loadLogs() {
+    const list = document.getElementById('log-list');
+    if (!list) return;
+    list.innerHTML = '';
+    const logs = JSON.parse(localStorage.getItem('altar_logs') || '[]');
+    
+    logs.forEach(log => {
+        const li = document.createElement('li');
+        li.innerHTML = `<small>[${log.date}]</small><br>${log.text}`;
+        list.prepend(li);
+    });
+}
+
+document.getElementById('seal-note').addEventListener('click', () => {
+    const textarea = document.getElementById('note');
+    const text = textarea.value.trim();
+    if (!text) return;
+
+    const logs = JSON.parse(localStorage.getItem('altar_logs') || '[]');
+    logs.push({ date: new Date().toLocaleString(), text: text });
+    localStorage.setItem('altar_logs', JSON.stringify(logs));
+    
+    textarea.value = '';
+    loadLogs();
+});
+
+// ==========================================
 // 5. UTILITIES (Candle & Audio Invocation)
 // ==========================================
 let candleLit = false;
