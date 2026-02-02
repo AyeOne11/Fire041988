@@ -1,0 +1,199 @@
+/* --- GLOBAL WORKSPACE --- */
+body.scriptorium-theme {
+    background: #121212;
+    color: #e0d4b0;
+    font-family: 'EB Garamond', serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+    transition: background 0.5s ease;
+}
+
+.workspace-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- SIDEBAR: CURRENT WORKS --- */
+.manuscript-sidebar {
+    width: 300px;
+    background: #0a0a0a;
+    border-right: 1px solid #d4af37;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-title {
+    font-family: 'Cinzel', serif;
+    color: #ffd700;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.forge-btn {
+    background: #d4af37;
+    color: #121212;
+    border: none;
+    padding: 12px;
+    font-family: 'Cinzel', serif;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+.forge-btn:hover {
+    background: #fff;
+    box-shadow: 0 0 10px #d4af37;
+}
+
+/* --- HIERARCHY TIERS --- */
+.manuscript-folder {
+    margin-bottom: 5px;
+}
+
+.manuscript-header {
+    background: rgba(212, 175, 55, 0.1);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.folder-title-group {
+    display: flex;
+    align-items: center;
+    font-family: 'Cinzel', serif;
+    color: #ffd700;
+}
+
+.chapter-tier {
+    padding-left: 20px;
+    border-left: 1px solid rgba(212, 175, 55, 0.2);
+    margin-left: 10px;
+    overflow: hidden;
+    max-height: 2000px;
+    transition: max-height 0.4s ease-out;
+}
+
+.chapter-tier.collapsed {
+    max-height: 0;
+}
+
+.sidebar-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #222;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.sidebar-item:hover { background: rgba(212, 175, 55, 0.05); }
+
+.active-chapter {
+    background: rgba(212, 175, 55, 0.2);
+    border-left: 3px solid #ffd700;
+}
+
+.folder-arrow { margin-right: 8px; font-size: 0.8rem; }
+.folder-actions button, .delete-btn { background: none; border: none; color: #666; cursor: pointer; }
+.folder-actions button:hover { color: #ffd700; }
+.delete-btn:hover { color: #ff4444; }
+
+/* --- THE WRITING DESK --- */
+.writing-desk {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 60px;
+    background: #121212;
+    transition: all 0.5s ease;
+}
+
+.editor-header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+}
+
+#chapter-title {
+    background: transparent;
+    border: none;
+    color: #ffd700;
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    width: 100%;
+    outline: none;
+}
+
+.stats-bar {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#manuscript-editor {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    color: #e0d4b0;
+    font-family: 'EB Garamond', serif;
+    font-size: 1.25rem;
+    line-height: 1.8;
+    resize: none;
+    outline: none;
+}
+
+/* --- ZEN MODE (THE VOID) --- */
+body.zen-active .manuscript-sidebar {
+    width: 0;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+    border-right: none;
+}
+
+body.zen-active .writing-desk {
+    padding: 60px 20%; /* Centered for focus */
+}
+
+.zen-btn {
+    background: transparent;
+    border: 1px solid #d4af37;
+    color: #d4af37;
+    padding: 4px 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+
+.zen-btn:hover {
+    background: #d4af37;
+    color: #121212;
+}
+
+/* --- PORTAL NAV --- */
+.portal-nav {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.return-link {
+    color: #d4af37;
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+}
