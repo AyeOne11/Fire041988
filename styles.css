@@ -310,3 +310,16 @@ th {
     padding-bottom: 5px;
     text-transform: uppercase;
 }
+
+.forge-link {
+    border-color: #d4af37 !important; /* Gold border */
+    color: #d4af37 !important;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.forge-link:hover {
+    background: rgba(212, 175, 55, 0.1);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
