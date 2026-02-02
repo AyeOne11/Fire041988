@@ -1,71 +1,113 @@
 /* --- THE DIGITALIS CORE --- */
 body.altar-theme {
     background: 
-        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-        url('images/the_door.jpg'); /* Your original background art */
+        linear-gradient(rgba(0, 0, 0, 0.7), rgba(14, 0, 31, 0.8)),
+        url('images/the_door.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     color: #e0d4b0;
     font-family: 'IM Fell English SC', serif;
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    padding: 40px 20px;
+}
+
+.portal-container {
+    width: 100%;
+    max-width: 800px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    padding: 40px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 0 50px rgba(0,0,0,1);
     text-align: center;
 }
 
-/* --- BRANDING: THE DIGITALIS OF S.E.A. --- */
 .main-title {
     font-family: 'Cinzel Decorative', cursive;
-    font-size: 3rem;
+    font-size: 2.8rem;
     color: #ffd700;
-    text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-    margin-bottom: 50px;
-    letter-spacing: 4px;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    margin: 0;
 }
 
-/* --- NAVIGATION GATEWAYS --- */
+.subtitle {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+}
+
+/* --- NAVIGATION --- */
 .altar-nav {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 15px;
+    margin: 40px 0;
 }
 
 .nav-link {
     text-decoration: none;
-    color: #ffd700;
+    padding: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    background: rgba(212, 175, 55, 0.05);
     transition: 0.3s;
+    border-radius: 10px;
+}
+
+.nav-link:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: #ffd700;
+    transform: translateY(-3px);
 }
 
 .nav-label {
     display: block;
-    font-size: 1.5rem;
-    letter-spacing: 2px;
-    border-bottom: 1px solid transparent;
+    font-size: 1.4rem;
+    color: #ffd700;
 }
 
 .nav-desc {
-    display: block;
     font-size: 0.8rem;
-    color: rgba(224, 212, 176, 0.6);
-    font-style: italic;
-    margin-top: 5px;
+    color: #888;
 }
 
-/* Hover Effects */
-.nav-link:hover .nav-label {
-    color: #fff;
-    text-shadow: 0 0 10px #ffd700;
-    border-bottom: 1px solid #ffd700;
+/* --- MODULES & TOOLS --- */
+.altar-module {
+    margin-bottom: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
 }
 
-/* --- FOOTER --- */
-.altar-footer {
-    position: absolute;
-    bottom: 30px;
-    opacity: 0.6;
-    letter-spacing: 2px;
+.altar-btn {
+    background: #4b0082;
+    color: #ffd700;
+    border: 1px solid #d4af37;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'IM Fell English SC', serif;
+    border-radius: 5px;
 }
+
+/* Restoring Candle Styles from your original */
+.candle-container { height: 200px; display: flex; justify-content: center; align-items: flex-end; }
+.candle { width: 30px; height: 100px; background: #e0d4b0; position: relative; opacity: 0.4; transition: 1s; }
+.candle.lit { opacity: 1; box-shadow: 0 0 20px rgba(255, 165, 0, 0.5); }
+.flame { width: 15px; height: 40px; background: orange; position: absolute; top: -45px; left: 50%; transform: translateX(-50%) scale(0); transition: 0.5s; border-radius: 50% 50% 20% 20%; filter: blur(2px); }
+.candle.lit .flame { transform: translateX(-50%) scale(1); }
+
+/* Sigil Forge */
+#sigil-canvas { border-radius: 50%; background: #000; border: 1px solid #333; margin-top: 20px; }
+input { background: rgba(255,255,255,0.05); border: 1px solid #333; color: gold; padding: 10px; border-radius: 5px; width: 60%; }
+
+/* Alphabet Reference */
+details { margin-top: 40px; border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 10px; }
+summary { padding: 15px; cursor: pointer; color: #ffd700; }
+table { width: 100%; font-size: 0.8rem; border-collapse: collapse; }
+td, th { padding: 8px; border: 1px solid #222; }
+
+.altar-footer { margin-top: 40px; opacity: 0.4; font-size: 0.7rem; }
