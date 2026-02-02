@@ -1,107 +1,71 @@
-/* --- GLOBAL ALTAR STYLES --- */
+/* --- THE DIGITALIS CORE --- */
 body.altar-theme {
-    background: radial-gradient(circle, #1a0033 0%, #05000a 100%);
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+        url('images/the_door.jpg'); /* Your original background art */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: #e0d4b0;
     font-family: 'IM Fell English SC', serif;
     margin: 0;
+    height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-.portal-container {
     text-align: center;
-    max-width: 800px;
-    padding: 40px;
 }
 
+/* --- BRANDING: THE DIGITALIS OF S.E.A. --- */
 .main-title {
     font-family: 'Cinzel Decorative', cursive;
-    font-size: 3.5rem;
+    font-size: 3rem;
     color: #ffd700;
-    letter-spacing: 5px;
-    margin-bottom: 10px;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-}
-
-.main-sigil {
-    font-size: 4rem;
-    color: #ffd700;
-    margin: 20px 0;
-    animation: pulse-glow 4s infinite ease-in-out;
-}
-
-@keyframes pulse-glow {
-    0%, 100% { text-shadow: 0 0 10px #ffd700; }
-    50% { text-shadow: 0 0 30px #ffd700, 0 0 50px #ff4500; }
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    margin-bottom: 50px;
+    letter-spacing: 4px;
 }
 
 /* --- NAVIGATION GATEWAYS --- */
 .altar-nav {
     display: flex;
     flex-direction: column;
-    gap: 25px;
-    margin-top: 50px;
+    gap: 30px;
 }
 
 .nav-link {
     text-decoration: none;
-    display: block;
-    padding: 20px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    background: rgba(255, 255, 255, 0.03);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
+    color: #ffd700;
+    transition: 0.3s;
 }
 
 .nav-label {
     display: block;
-    font-size: 1.4rem;
-    letter-spacing: 3px;
-    color: #ffd700;
-    margin-bottom: 5px;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    border-bottom: 1px solid transparent;
 }
 
 .nav-desc {
     display: block;
     font-size: 0.8rem;
-    color: #888;
+    color: rgba(224, 212, 176, 0.6);
     font-style: italic;
-    letter-spacing: 1px;
+    margin-top: 5px;
 }
 
-/* Specific Link Personalities */
-.adytum-link:hover {
-    border-color: #4b0082;
-    background: rgba(75, 0, 130, 0.1);
-    box-shadow: 0 0 20px rgba(75, 0, 130, 0.5);
-    transform: scale(1.05);
-}
-
-.forge-link:hover {
-    border-color: #d4af37;
-    background: rgba(212, 175, 55, 0.1);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
-    transform: scale(1.05);
-}
-
-.ambient-link:hover {
-    border-color: #00ced1;
-    background: rgba(0, 206, 209, 0.1);
-    box-shadow: 0 0 20px rgba(0, 206, 209, 0.5);
-    transform: scale(1.05);
+/* Hover Effects */
+.nav-link:hover .nav-label {
+    color: #fff;
+    text-shadow: 0 0 10px #ffd700;
+    border-bottom: 1px solid #ffd700;
 }
 
 /* --- FOOTER --- */
 .altar-footer {
-    margin-top: 60px;
-    opacity: 0.5;
-}
-
-.legacy-text {
-    font-size: 0.7rem;
-    letter-spacing: 4px;
+    position: absolute;
+    bottom: 30px;
+    opacity: 0.6;
+    letter-spacing: 2px;
 }
