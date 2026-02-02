@@ -8,28 +8,20 @@ app.use(cors());
 app.use(express.json());
 
 // 1. SAFE POOL CONFIGURATION
-// We check if the variable exists before trying to use it to prevent 500 crashes
 const dbUrl = process.env.DATABASE_URL;
-
-if (!dbUrl) {
-    console.error("CRITICAL ERROR: DATABASE_URL is not defined in the Environment Variables!");
-}
 
 const pool = new Pool({
   connectionString: dbUrl,
   ssl: {
-    rejectUnauthorized: false // Required for Render/Heroku connections
+    rejectUnauthorized: false 
   }
 });
 
-// 2. ERROR HANDLER FOR THE POOL
-// This prevents the server from dying if the database disconnects randomly
 pool.on('error', (err) => {
     console.error('Unexpected error on idle database client', err);
-    // We don't exit the process; we let the server stay alive
 });
 
-// 3. STARTUP RITUAL (Table Creation)
+// 2. STARTUP RITUAL
 const initDb = async () => {
     const queryText = `
         CREATE TABLE IF NOT EXISTS watcher_entries (
@@ -45,23 +37,24 @@ const initDb = async () => {
         console.log("Watcher's Table has been manifested.");
         client.release();
     } catch (err) {
-        console.error("Database connection failed during startup:", err.message);
-        // This log will tell you EXACTLY why the 500 error is happening
+        console.error("Database initialization failed:", err.message);
     }
 };
 initDb();
 
-// 4. API ROUTES
+// 3. API ROUTES
+
+// GET: Fetch all visions
 app.get('/api/entries', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM watcher_entries ORDER BY created_at DESC');
         res.json(result.rows);
     } catch (err) {
-        console.error("GET Error:", err.message);
-        res.status(500).json({ error: "The Archive is currently unreachable.", details: err.message });
+        res.status(500).json({ error: "The Archive is unreachable.", details: err.message });
     }
 });
 
+// POST: Seal a new vision
 app.post('/api/entries', async (req, res) => {
     const { title, content } = req.body;
     try {
@@ -71,22 +64,11 @@ app.post('/api/entries', async (req, res) => {
         );
         res.json(result.rows[0]);
     } catch (err) {
-        console.error("POST Error:", err.message);
         res.status(500).json({ error: "Could not seal the entry.", details: err.message });
     }
 });
 
-// DELETE: The Rite of Dissolution
-app.delete('/api/entries/:id', async (req, res) => {
-    try {
-        await pool.query('DELETE FROM watcher_entries WHERE id = $1', [req.params.id]);
-        res.json({ message: "Entry dissolved into the void." });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
-
-// PUT: The Rite of Revision
+// PUT: The Rite of Revision (Edit)
 app.put('/api/entries/:id', async (req, res) => {
     const { title, content } = req.body;
     try {
@@ -96,15 +78,24 @@ app.put('/api/entries/:id', async (req, res) => {
         );
         res.json(result.rows[0]);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: "Revision failed.", details: err.message });
     }
 });
 
-// Add a basic "Health Check" route for the main URL
+// DELETE: The Rite of Dissolution (Delete)
+app.delete('/api/entries/:id', async (req, res) => {
+    try {
+        await pool.query('DELETE FROM watcher_entries WHERE id = $1', [req.params.id]);
+        res.json({ message: "Entry dissolved." });
+    } catch (err) {
+        res.status(500).json({ error: "Dissolution failed.", details: err.message });
+    }
+});
+
+// Health Check
 app.get('/', (req, res) => {
     res.send("The Gateway is standing by. API is at /api/entries");
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`The Gateway is active on port ${PORT}`));
-
+app.listen(PORT, '0.0.0.0', () => console.log(`The Gateway is active on port ${PORT}`));
